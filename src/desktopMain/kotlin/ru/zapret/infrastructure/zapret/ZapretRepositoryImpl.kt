@@ -24,8 +24,15 @@ class ZapretRepositoryImpl(
   }
 
   override suspend fun start(config: ZapretConfig) {
-    val command = buildCommand(config)
-    processRunner.start(command, paths.zapretDir)
+    installConfigAsService(config)
+
+    val startCommand = listOf(
+      "cmd.exe",
+      "/c",
+      paths.serviceBat.absolutePath,
+      "start"
+    )
+    processRunner.start(startCommand, paths.zapretDir)
   }
 
   override suspend fun stop() {
@@ -40,12 +47,34 @@ class ZapretRepositoryImpl(
     }
   }
 
-  private fun buildCommand(config: ZapretConfig): List<String> {
-    return listOf(
-      paths.serviceBat.absolutePath,
-      "--config=${config.configName}",
-      if (config.enableGameFilter) "--game" else "",
-      if (config.autoTests) "--autotest" else ""
-    ).filter { it.isNotBlank() }
+  override suspend fun listConfigs(): List<ZapretConfig> {
+    if (!paths.zapretDir.exists()) return emptyList()
+
+    return paths.zapretDir
+      .listFiles { file ->
+        file.isFile &&
+                file.name.endsWith(".bat", true) &&
+                !file.name.startsWith("service", true)
+      }
+      ?.sortedBy { it.name.lowercase() }
+      ?.map { file ->
+        ZapretConfig(
+          configName = file.nameWithoutExtension,
+          enableGameFilter = false,
+          autoTests = false
+        )
+      }.orEmpty()
+  }
+
+  override suspend fun getActiveConfig(): ZapretConfig? {
+    val command = listOf(
+      "reg",
+      "query",
+      "HKLM\\System\\CurrentControlSet\\Services\\zapret",
+      "/v",
+      "zapret-discord-youtube"
+    )
+
+    processRunner.start()
   }
 }
