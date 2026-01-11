@@ -1,7 +1,7 @@
 package features.zapret.domain
 
 class AutoTestAnalyzer {
-  private val bestConfigRegex = Regex("Best config:\\s", RegexOption.IGNORE_CASE)
+  private val bestConfigRegex = Regex("Best strategy:\\s", RegexOption.IGNORE_CASE)
 
   fun findBestConfig(logs: List<String>): String? {
     return logs.mapNotNull { line ->
