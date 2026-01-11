@@ -19,19 +19,17 @@ class BootstrapZapretUseCase(
       emit(BootstrapState.Downloading("Скачивание новой версии zapret..."))
 
       try {
-        val release = repository.getLatestRelease()
-        val response = repository.download(release.zipUrl)
-
-        repository.extract(response)
+        val release = repository.getDownloadUrl()
+        repository.download(release)
 
         emit(BootstrapState.Ready)
       } catch (e: Exception) {
         emit(BootstrapState.Error("Не удалось загрузить zapret: ${e.message}"))
       }
     } else {
-      if (flagManager.isEnabled(ZapretFlag.AUTO_UPDATES)) {
-        TODO("Реализовать автообновление zapret")
-      }
+//      if (flagManager.isEnabled(ZapretFlag.AUTO_UPDATES)) {
+//        TODO("Реализовать автообновление zapret")
+//      }
 
       if (flagManager.isEnabled(ZapretFlag.AUTO_TEST_ON_LOAD)) {
         emit(BootstrapState.RunningAutoTests)

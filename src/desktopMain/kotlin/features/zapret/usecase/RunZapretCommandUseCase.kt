@@ -8,6 +8,6 @@ class RunZapretCommandUseCase(
   private val repository: ZapretRepositoryImpl
 ) {
   operator fun invoke(command: ZapretCommand): Flow<String> {
-    return repository.runServiceCommand(command.id)
+    return repository.runServiceCommand(listOf(command.id))
   }
 }
