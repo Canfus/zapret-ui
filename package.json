@@ -1,0 +1,64 @@
+{
+  "name": "zapret-ui",
+  "version": "1.0.0",
+  "description": "GUI for zapret",
+  "main": "dist/main/main.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "scripts": {
+    "dev": "tsc && concurrently \"tsc -w\" \"wait-on dist/renderer/index.html && electron .\"",
+    "build": "tsc && vite build",
+    "dist": "pnpm build && electron-builder",
+    "lint": "eslint src --fix --ext .ts",
+    "test": "jest",
+    "prettier": "prettier --write .",
+    "format": "pnpm prettier && pnpm lint"
+  },
+  "build": {
+    "appId": "com.zapret.gui",
+    "productName": "Zapret UI",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "axios": "^1.13.2",
+    "electron-updater": "^6.7.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/adm-zip": "^0.5.7",
+    "@types/node": "^25.0.10",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitejs/plugin-react": "^5.1.2",
+    "concurrently": "^9.2.1",
+    "electron": "^40.0.0",
+    "electron-builder": "^26.4.0",
+    "eslint": "^9.39.2",
+    "eslint-import-resolver-node": "^0.3.9",
+    "globals": "^15.15.0",
+    "jest": "^30.2.0",
+    "prettier": "^3.8.1",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vite-tsconfig-paths": "^6.0.5",
+    "wait-on": "^9.0.3"
+  }
+}

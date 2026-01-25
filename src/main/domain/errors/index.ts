@@ -1,0 +1,1 @@
+export { ZapretError, ZapretErrorCode, ZapretNotInstalledError } from './zapret-error'
