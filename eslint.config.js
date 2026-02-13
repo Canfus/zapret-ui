@@ -1,55 +1,23 @@
 import js from "@eslint/js";
-import tseslint from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
 import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import tseslint from "typescript-eslint";
+import { defineConfig, globalIgnores } from "eslint/config";
 
-export default [
+export default defineConfig([
+  globalIgnores(["dist"]),
   {
-    files: ["**/*.{js,mjs,cjs}"],
+    files: ["**/*.{ts,tsx}"],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite
+    ],
     languageOptions: {
-      globals: globals.node,
-      sourceType: "commonjs"
-    },
-    rules: {
-      ...js.configs.recommended.rules
+      ecmaVersion: 2020,
+      globals: globals.browser
     }
-  },
-
-  {
-    files: ["**/*.{ts}"],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        project: "./tsconfig.json",
-        tsconfigRootDir: import.meta.dirname
-      },
-      globals: globals.node,
-      sourceType: "commonjs"
-    },
-    plugins: {
-      "@typescript-eslint": tseslint
-    },
-    rules: {
-      ...js.configs.recommended.rules,
-      ...tseslint.configs.recommended.rules,
-
-      "@typescript-eslint/no-unused-vars": "error",
-      "@typescript-eslint/no-explicit-any": ["warn", { ignoreRestArgs: true }],
-      "@typescript-eslint/consistent-type-imports": "warn",
-      "@typescript-eslint/prefer-nullish-coalescing": "warn",
-
-      "no-console": "warn",
-      "node/no-missing-import": "off",
-      "node/no-unsupported-features/es-syntax": "off"
-    },
-    settings: {
-      "import/resolver": {
-        node: { extensions: [".ts", ".js"] }
-      }
-    }
-  },
-
-  {
-    ignores: ["dist/**", "node_modules/**", "*.config.{js,mjs,cjs}"]
   }
-];
+]);

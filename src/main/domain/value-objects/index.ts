@@ -1,1 +1,0 @@
-export { ZapretPath } from './zapret-path'
