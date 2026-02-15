@@ -1,8 +1,7 @@
 {
   "files": [],
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "nodenext"
+    "module": "ESNext"
   },
   "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
 }
