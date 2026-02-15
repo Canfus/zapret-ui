@@ -3,7 +3,7 @@ import type { CliService } from "../services/cli";
 export class InstallServiceUseCase {
   constructor(private _cli: CliService) {}
 
-  async execute(configIndex: number) {
+  execute = async (configIndex: number) => {
     if (configIndex < 1) {
       throw new Error(`Invalid config index: ${configIndex}. Must be gte 1.`);
     }
@@ -13,5 +13,5 @@ export class InstallServiceUseCase {
     if (!result.success) {
       throw new Error(`Failed to install service (exit code ${result.exitCode}):\n${result.errors || result.output}`);
     }
-  }
+  };
 }

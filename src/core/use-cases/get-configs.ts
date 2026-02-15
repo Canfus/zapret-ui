@@ -9,7 +9,7 @@ export class GetConfigsUseCase {
     private _zapretDir: string
   ) {}
 
-  async execute(): Promise<ConfigFile[]> {
+  execute = async (): Promise<ConfigFile[]> => {
     const files = await this._filesystem.glob(this._zapretDir, CONFIG_GLOB);
 
     return files
@@ -24,7 +24,7 @@ export class GetConfigsUseCase {
         path: filePath,
         index: index + 1
       }));
-  }
+  };
 
   private extractNumber(filename: string): number {
     const match = filename.match(/(\d+)/);

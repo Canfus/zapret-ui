@@ -12,11 +12,11 @@ export class InstallZapretUseCase {
     private _zapretDir: string
   ) {}
 
-  async isInstalled(): Promise<boolean> {
+  isInstalled = async (): Promise<boolean> => {
     return this._filesystem.exists(this._zapretDir);
-  }
+  };
 
-  async execute(onProgress?: (percent: number) => void) {
+  execute = async (onProgress?: (percent: number) => void) => {
     const report = onProgress ?? (() => {});
 
     const installed = await this.isInstalled();
@@ -44,5 +44,5 @@ export class InstallZapretUseCase {
 
     await this._archive.extractZip(buffer, this._zapretDir);
     report(100);
-  }
+  };
 }

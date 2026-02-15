@@ -3,7 +3,7 @@ import type { CliService } from "../services/cli";
 export class ToggleGameFilterUseCase {
   constructor(private _cli: CliService) {}
 
-  async execute() {
+  execute = async () => {
     const result = await this._cli.toggleGameFilter();
 
     if (!result.success) {
@@ -11,5 +11,5 @@ export class ToggleGameFilterUseCase {
         `Failed to toggle game filter (exit code ${result.exitCode}):\n${result.errors || result.output}`
       );
     }
-  }
+  };
 }

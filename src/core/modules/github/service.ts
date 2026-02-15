@@ -44,11 +44,14 @@ export class GithubService {
 
         const chunks: Buffer[] = [];
 
-        response.on("data", chunks.push);
+        response.on("data", (chunk) => {
+          chunks.push(chunk);
+        });
 
         response.on("end", () => {
           try {
             const body = Buffer.concat(chunks).toString("utf-8");
+
             resolve(JSON.parse(body) as T);
           } catch (err) {
             reject(new Error(`Failed to parse Github API response: ${err}`));

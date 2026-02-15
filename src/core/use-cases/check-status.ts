@@ -9,7 +9,7 @@ export class CheckStatusUseCase {
     private _registry: RegistryService
   ) {}
 
-  async execute(): Promise<ServiceStatusInfo> {
+  execute = async (): Promise<ServiceStatusInfo> => {
     const status = await this._cli.checkStatus();
 
     if (!status.currentConfig && status.status !== ServiceStatus.NOT_INSTALLED) {
@@ -21,5 +21,5 @@ export class CheckStatusUseCase {
     }
 
     return status;
-  }
+  };
 }
