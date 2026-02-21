@@ -1,0 +1,44 @@
+.wrapper {
+    position: relative;
+}
+
+.button {
+    width: 150px;
+    aspect-ratio: 1 / 1;
+
+    background-color: var(--danger-color);
+
+    border-radius: 50%;
+    border: none;
+
+    z-index: 10;
+
+    &:not(:disabled):hover {
+        cursor: pointer;
+    }
+}
+
+.button--active {
+    background-color: var(--success-color);
+}
+
+.button--loading {
+    cursor: progress;
+
+    background-color: var(--disabled-bg-color);
+}
+
+.spinner {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    translate: -50% -50%;
+
+    z-index: -10;
+}
+
+.spinner--loading {
+    background-color: var(--disabled-bg-color);
+}

@@ -15,9 +15,14 @@
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "prettier": "prettier --write .",
-    "format": "pnpm prettier && pnpm lint:fix"
+    "format": "pnpm prettier && pnpm lint:fix",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "scripts:available": "node ./scripts/pnpm-scripts.js"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
+    "framer-motion": "^12.34.0",
     "jszip": "^3.10.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"

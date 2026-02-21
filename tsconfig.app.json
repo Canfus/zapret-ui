@@ -27,10 +27,13 @@
     /* TS paths */
     "baseUrl": ".",
     "paths": {
-      "@core/*": ["./src/core/*"]
+      "@core/*": ["./src/core/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@assets/*": ["./src/frontend/common/assets/*"],
+      "@common/*": ["./src/frontend/common/*"]
     }
   },
-  "include": ["src/**/*", "index.html"],
+  "include": ["src/**/*", ".storybook/**/*", "index.html"],
   "ts-node": {
     "esm": true
   }
